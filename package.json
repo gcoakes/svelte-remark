@@ -2,20 +2,26 @@
   "name": "markdown-svelte",
   "version": "0.0.1",
   "scripts": {
-    "dev": "svelte-kit dev",
     "build": "svelte-kit build",
-    "package": "svelte-kit package",
-    "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+    "dev": "svelte-kit dev",
+    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
-    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
+    "package": "svelte-kit package",
+    "preview": "svelte-kit preview",
+    "vitebook:build": "vitebook build",
+    "vitebook:dev": "vitebook dev",
+    "vitebook:preview": "vitebook preview"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
+    "@vitebook/client": "^0.13.1",
+    "@vitebook/core": "^0.13.1",
+    "@vitebook/theme-default": "^0.13.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.1",
@@ -27,5 +33,17 @@
     "tslib": "^2.3.1",
     "typescript": "^4.4.3"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "katex": "^0.15.1",
+    "rehype-highlight": "^5.0.2",
+    "rehype-katex": "^6.0.2",
+    "rehype-sanitize": "^5.0.1",
+    "rehype-stringify": "^9.0.2",
+    "remark-math": "^5.1.1",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
+    "unified": "^10.1.1"
+  },
+  "description": "Markdown viewer Svelte component"
 }
