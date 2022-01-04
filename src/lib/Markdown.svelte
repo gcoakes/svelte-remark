@@ -1,10 +1,13 @@
 <script lang="ts" context="module">
   export type Tab = "html" | "md";
+  export type Parser = (string) => Promise<string>;
+  export const parser = {};
 </script>
 
 <script lang="ts">
   import markdown from "./markdown";
   import Loading from "./Loading.svelte";
+  import { getContext } from "svelte";
 
   export let initialText = "";
   export let text: string = initialText;
@@ -20,17 +23,23 @@
   $: rows = resizeToFit
     ? Math.max(text.match(/\n/g)?.length + 3, minRows)
     : undefined;
+
+  const parse = getContext<Parser>(parser) || markdown;
 </script>
 
 <div class="markdown">
   {#if tab == "html"}
-    <div class="content">
-      {#await markdown(text)}
-        <Loading />
-      {:then response}
+    {#await parse(text)}
+      <div class="loader">
+        <slot name="loading">
+          <Loading />
+        </slot>
+      </div>
+    {:then response}
+      <div class="content">
         {@html response}
-      {/await}
-    </div>
+      </div>
+    {/await}
   {:else}
     <textarea class="content" {disabled} {rows} bind:value={text} />
   {/if}
@@ -76,6 +85,13 @@
   }
   .controls-gap {
     flex: 1 1;
+  }
+  .loader {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   .content {
     flex: 1 1;

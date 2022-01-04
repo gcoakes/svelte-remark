@@ -3,6 +3,7 @@
 
   import Markdown from "../lib/Markdown.svelte";
   import lorem from "./lorem.json";
+  import ParserContext from "./ParserContext.svelte";
 </script>
 
 <Variant name="Default">
@@ -36,6 +37,12 @@
   <div class="stretch">
     <Markdown text={lorem} />
   </div>
+</Variant>
+
+<Variant name="Customer Parser">
+  <ParserContext>
+    <Markdown text={lorem} />
+  </ParserContext>
 </Variant>
 
 <style>

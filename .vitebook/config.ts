@@ -9,7 +9,7 @@ export default defineConfig<DefaultThemeConfig>({
   include: ["src/**/*.story.svelte"],
   plugins: [clientPlugin({ appFile: "App.svelte" }), defaultThemePlugin()],
   site: {
-    title: "svelte-markdown",
+    title: "svelte-remark",
     description: "Markdown viewer Svelte component.",
     theme: {},
   },

@@ -1,5 +1,6 @@
 {
-  "name": "svelte-markdown",
+  "name": "svelte-remark",
+  "description": "Markdown viewer Svelte component",
   "version": "0.0.1",
   "scripts": {
     "build": "svelte-kit build",
@@ -30,6 +31,7 @@
     "svelte": "^3.44.0",
     "svelte-check": "^2.2.6",
     "svelte-preprocess": "^4.9.4",
+    "svelte2tsx": "^0.4.12",
     "tslib": "^2.3.1",
     "typescript": "^4.4.3"
   },
@@ -44,6 +46,5 @@
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
     "unified": "^10.1.1"
-  },
-  "description": "Markdown viewer Svelte component"
+  }
 }
