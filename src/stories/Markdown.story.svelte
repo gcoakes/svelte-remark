@@ -1,9 +1,11 @@
 <script lang="ts">
   import { Variant } from "@vitebook/client";
 
-  import Markdown from "../lib/Markdown.svelte";
+  import Markdown, { setCodeTheme } from "../lib/Markdown.svelte";
   import lorem from "./lorem.json";
   import ParserContext from "./ParserContext.svelte";
+
+  setCodeTheme("atom-one-light");
 </script>
 
 <Variant name="Default">

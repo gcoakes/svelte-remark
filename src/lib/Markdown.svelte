@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+  export { setCodeTheme } from "./markdown";
   export type Tab = "html" | "md";
   export type Parser = (string) => Promise<string>;
   export const parser = {};
