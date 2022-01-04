@@ -6,19 +6,19 @@
   import markdown from "./markdown";
   import Loading from "./Loading.svelte";
 
-  export let initialText: string = "";
+  export let initialText = "";
   export let text: string = initialText;
-  export let showTabs: boolean = true;
+  export let showTabs = true;
   export let defaultTab: Tab = "html";
   export let tab: Tab = defaultTab;
-  export let htmlLabel: string = "HTML";
-  export let mdLabel: string = "MD";
-  export let editable: boolean = false;
-  export let resizeToFit: boolean = true;
-  export let minRows: number = 40;
+  export let htmlLabel = "HTML";
+  export let mdLabel = "MD";
+  export let editable = false;
+  export let resizeToFit = true;
+  export let minRows = 40;
   $: disabled = !editable;
   $: rows = resizeToFit
-    ? Math.min(text.match(/\n/g)?.length + 3, minRows)
+    ? Math.max(text.match(/\n/g)?.length + 3, minRows)
     : undefined;
 </script>
 
@@ -32,7 +32,7 @@
       {/await}
     </div>
   {:else}
-    <textarea {disabled} {rows} bind:value={text} />
+    <textarea class="content" {disabled} {rows} bind:value={text} />
   {/if}
   {#if showTabs}
     <div class="tabs">
@@ -53,6 +53,7 @@
 <style>
   .markdown {
     flex: 1 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     justify-content: stretch;
@@ -78,9 +79,9 @@
   }
   .content {
     flex: 1 1;
+    overflow: auto;
   }
   textarea {
-    flex: 1 1;
     border: none;
     outline: none;
     resize: none;

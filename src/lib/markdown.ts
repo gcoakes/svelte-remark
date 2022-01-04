@@ -9,18 +9,21 @@ import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 
-export default function markdown(md) {
+export default function markdown(md: string): Promise<string> {
   return (
+    // @ts-ignore: The typing of the `.process` function is incorrect. Some
+    // plugins may change the output type. Specifically, rehype-stringify causes
+    // it to out a string.
     unified()
       .use(remarkParse)
       .use(remarkMath)
       .use(remarkRehype)
       .use(rehypeHighlight, { subset: false })
-      // @ts-ignore
+      // @ts-ignore: Schema is valid and pulled straight from their documentation.
       .use(rehypeSanitize, sanitizeSchema)
       .use(rehypeKatex)
       .use(rehypeStringify)
-      .process(md)
+      .process(md) as Promise<string>
   );
 }
 
