@@ -12,7 +12,7 @@
   export let initialText: string = null;
   export let textRequest: Promise<string> = null;
   export let text = initialText;
-  $: if (text === null) {
+  $: if (text === null && textRequest !== null) {
     textRequest.then((t) => (text = t));
   }
 
