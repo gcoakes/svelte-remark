@@ -7,11 +7,15 @@
 
 <script lang="ts">
   import markdown from "./markdown";
-  import Loading from "./Loading.svelte";
   import { getContext } from "svelte";
 
-  export let initialText = "";
-  export let text: string = initialText;
+  export let initialText: string = null;
+  export let textRequest: Promise<string> = null;
+  export let text = initialText;
+  $: if (text === null) {
+    textRequest.then((t) => (text = t));
+  }
+
   export let showTabs = true;
   export let defaultTab: Tab = "html";
   export let tab: Tab = defaultTab;
@@ -22,28 +26,32 @@
   export let minRows = 40;
   $: disabled = !editable;
   $: rows = resizeToFit
-    ? Math.max(text.match(/\n/g)?.length + 3, minRows)
+    ? Math.max(text?.match(/\n/g)?.length + 3, minRows)
     : undefined;
 
   const parse = getContext<Parser>(parser) || markdown;
 </script>
 
 <div class="markdown">
-  {#if tab == "html"}
-    {#await parse(text)}
-      <div class="loader">
-        <slot name="loading">
-          <Loading />
-        </slot>
-      </div>
-    {:then response}
-      <div class="content">
-        {@html response}
-      </div>
-    {/await}
-  {:else}
-    <textarea class="content" {disabled} {rows} bind:value={text} />
-  {/if}
+  {#await textRequest}
+    <div class="loader">
+      <slot name="loading" />
+    </div>
+  {:then}
+    {#if tab == "html"}
+      {#await parse(text)}
+        <div class="loader">
+          <slot name="loading" />
+        </div>
+      {:then response}
+        <div class="content">
+          {@html response}
+        </div>
+      {/await}
+    {:else}
+      <textarea class="content" {disabled} {rows} bind:value={text} />
+    {/if}
+  {/await}
   {#if showTabs}
     <div class="tabs">
       <div class:active={tab == "html"} on:click={() => (tab = "html")}>

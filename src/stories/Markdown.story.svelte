@@ -6,6 +6,9 @@
   import ParserContext from "./ParserContext.svelte";
 
   setCodeTheme("atom-one-light");
+
+  let text: string;
+  $: console.log(text);
 </script>
 
 <Variant name="Default">
@@ -45,6 +48,15 @@
   <ParserContext>
     <Markdown text={lorem} />
   </ParserContext>
+</Variant>
+
+<Variant name="Text Request">
+  <div class="stretch">
+    <Markdown
+      textRequest={new Promise((r) => setTimeout(r, 3000)).then(() => lorem)}
+      bind:text
+    />
+  </div>
 </Variant>
 
 <style>
