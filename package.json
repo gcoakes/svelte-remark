@@ -1,7 +1,7 @@
 {
   "name": "svelte-remark",
   "description": "Markdown viewer Svelte component",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "build": "svelte-kit build",
     "check": "svelte-check --tsconfig ./tsconfig.json",
